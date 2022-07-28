@@ -12,22 +12,6 @@
 #include <set>
 #include <stack>
 
-void ReformatGraph(Graph& temp) { // Adds entries for all nodes into Adjacency List, reducing complexity of the
-                                  // algorithms - must be called before using Dijkstra() or BellmanFord().
-    for (auto pair : temp.graph) {
-
-        for (auto subPair : pair.second) {
-
-            temp.graph[subPair.first].emplace(make_pair(pair.first, subpair.second));
-
-        } // Previously, the only nodes which had entries in the Adjacency List were the ones listed as 'start'
-          // nodes within the initially input data. After calling this, there will be entries for every node.
-          // This significantly reduces the complexity of the algorithms, and thus their complexities align with
-          // their 'textbook versions'.
-    }
-
-}
-
 stack<int> Dijkstra(map<int, vector<pair<int, float>>> graph, int source, int dest) {
 
     int V = graph.size(); // Represents the number of vertices.
