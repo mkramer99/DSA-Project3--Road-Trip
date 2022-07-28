@@ -1,3 +1,3 @@
-/Users/melaniekramer/CLionProjects/DSA-Project3/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-/Users/melaniekramer/CLionProjects/DSA-Project3/cmake-build-debug/CMakeFiles/edit_cache.dir
-/Users/melaniekramer/CLionProjects/DSA-Project3/cmake-build-debug/CMakeFiles/DSA_Project3.dir
+C:/Users/otish/CLionProjects/RoadTrip/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+C:/Users/otish/CLionProjects/RoadTrip/cmake-build-debug/CMakeFiles/Minesweeper.dir
+C:/Users/otish/CLionProjects/RoadTrip/cmake-build-debug/CMakeFiles/edit_cache.dir
