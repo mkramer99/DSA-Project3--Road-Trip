@@ -100,14 +100,38 @@ stack<int> BellmanFord(map<int, vector<pair<int, float>>> graph, int source, int
 
     d[source] = 0;
 
-    for (int i = 0; i < V - 1; i++) {
+    for (int i = 0; i < V - 1; i++) { // Relaxes all edges in the graph |V - 1| times.
 
-        for (int j = 0; j < E; j++) {
+        for (auto pair : graph) { // Iterates through each entry in the Adjacency List.
 
+            for (auto subPair : pair.second) { // Iterates through each entry in the corresponding vector.
 
+                if (d[pair.first] != numeric_limits<int>::max() && d[subPair.first] > (d[pair.first] + subPair.second) {
+
+                    d[subPair.first] = d[pair.first] + subPair.second;
+
+                }
+
+            }
 
         }
 
     }
+
+    stack<int> path; // Represents the shortest path found; source on the top, destination on the bottom.
+    path.push(dest); // Thus, destination is pushed first.
+
+    int temp = p[dest];
+
+    while (temp != source) {
+
+        path.push(temp);
+        temp = p[temp];
+
+    }
+
+    temp.push(source); // Pushes source to the top of the stack to complete the path.
+
+    return path;
 
 }
