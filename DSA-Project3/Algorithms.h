@@ -81,7 +81,7 @@ stack<int> Dijkstra(map<int, vector<pair<int, float>>> graph, int source, int de
 
     }
 
-    temp.push(source); // Pushes source to the top of the stack to complete the path.
+    path.push(source); // Pushes source to the top of the stack to complete the path.
 
     return path;
 
@@ -91,10 +91,12 @@ stack<int> BellmanFord(map<int, vector<pair<int, float>>> graph, int source, int
 
     int V = graph.size(); // Represents number of vertices.
     int d[V]; // Holds distances from the source vertex to each vertex in the array.
+    int p[V]; // Contains predecessor node indices, for finding the shortest path.
 
     for (int i = 0; i < V; i++) {
 
         d[i] = numeric_limits<int>::max(); // Sets each value in 'd' to 'infinity' (max integer value).
+        p[i] = -1;
 
     }
 
@@ -109,6 +111,7 @@ stack<int> BellmanFord(map<int, vector<pair<int, float>>> graph, int source, int
                 if (d[pair.first] != numeric_limits<int>::max() && d[subPair.first] > (d[pair.first] + subPair.second) {
 
                     d[subPair.first] = d[pair.first] + subPair.second;
+                    p[subPair.first] = pair.first;
 
                 }
 
@@ -130,7 +133,7 @@ stack<int> BellmanFord(map<int, vector<pair<int, float>>> graph, int source, int
 
     }
 
-    temp.push(source); // Pushes source to the top of the stack to complete the path.
+    path.push(source); // Pushes source to the top of the stack to complete the path.
 
     return path;
 
