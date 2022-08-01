@@ -18,94 +18,17 @@
 using namespace std::chrono;
 using Clock = std::chrono::steady_clock;
 
-// there are two Dijstra implementations
-// the second one is utilized in main method
-// first will be commented out
-/*
-stack<int> Dijkstra(map<int, vector<pair<int, float>>> graph, int source, int dest) {
-
-    int V = graph.size(); // Represents the number of vertices.
-
-    set<int> S; // Computed vertices.
-    set<int> VS; // Vertices to be computed.
-
-    for (auto pair : graph) {
-
-        VS.emplace(pair.first);
-
-    }
-
-    int d[V]; // Contains distances.
-    int p[V]; // Contains predecessor node indices, for finding the shortest path.
-
-    for (int i = 0; i < V; i++) {
-
-        d[i] = numeric_limits<int>::max(); // Sets each value in 'd' to 'infinity' (max integer value).
-        p[i] = -1;
-
-    }
-
-    d[source] = 0;
-
-    int min = source; // 'min' tracks the closest node to source in 'VS', initially source itself.
-
-    while (!VS.empty()) {
-
-        for (auto pair : graph[min]) { // Checks nodes which graph[min] leads to.
-
-            if (d[pair.first] > d[min] + pair.second) {
-
-                d[pair.first] = d[min] + pair.second;
-                p[pair.first] = min;
-
-            }
-
-        }
-
-        S.emplace(min); // Adds minimum distance element to S.
-        VS.erase(min); // Removes minimum distance element from VS.
-
-        min = *(VS.begin()); // Resets min to help find new smallest distance in VS.
-
-        for (auto arr : VS) {
-
-            if (d[arr] < d[min]) {
-
-                min = arr; // Finds next minimum distance from indices in VS.
-
-            }
-
-        }
-
-    }
-
-    stack<int> path; // Represents the shortest path found; source on the top, destination on the bottom.
-    path.push(dest); // Thus, destination is pushed first.
-
-    int temp = p[dest];
-
-    while (temp != source) {
-
-        path.push(temp);
-        temp = p[temp];
-
-    }
-
-    path.push(source); // Pushes source to the top of the stack to complete the path.
-
-    return path;
-}
-*/
-
+// bellman ford shortest path algorithm will return global optimum distance
 float BellmanFord(map<int, vector<pair<int, float>>> graph, int source, int dest) {
     cout << "Bellman Ford" << endl;
-    auto tic = Clock::now();
+    auto tic = Clock::now(); // start timer for algorithm
     int V = graph.size(); // Represents number of vertices.
     float d[V]; // Holds distances from the source vertex to each vertex in the array.
     int p[V]; // Contains predecessor node indices, for finding the shortest path.
     set<int> S; // Computed vertices.
     float distance = 0;
     int nodes = 0;
+    
     cout << "first for loop" << endl;
     for (int i = 0; i < V; i++) {
         d[i] = numeric_limits<int>::max(); // Sets each value in 'd' to 'infinity' (max integer value).
@@ -114,7 +37,8 @@ float BellmanFord(map<int, vector<pair<int, float>>> graph, int source, int dest
 
     d[source] = 0;
     cout << "nested for loop" << endl;
-    bool flag = true;
+    bool flag = true; // flag true until destination found
+    
     while (flag == true) {
         for (int i = 0; i < V - 1; i++) { // Relaxes all edges in the graph |V - 1| times.
             for (auto pair: graph) { // Iterates through each entry in the Adjacency List.
@@ -138,15 +62,17 @@ float BellmanFord(map<int, vector<pair<int, float>>> graph, int source, int dest
             if (flag == false) { break; }
         }
     }
-    auto toc = Clock::now();
+    
+    auto toc = Clock::now(); // end timer for algorithm
     cout << "elapsed time: " << duration_cast<std::chrono::milliseconds>(toc - tic).count() << endl;
     return distance;
 }
                     
-// MKramer                  
+// MKramer             
+// dijkstra will return local optimum solution
 float Dijkstra(map<int, vector<pair<int, float>>> graph, int source, int dest) {
     cout << "entered Dijkstra" << endl;
-    auto tic = Clock::now();
+    auto tic = Clock::now(); // start timer for algorithm
     int V = graph.size(); // Represents the number of vertices.
     set<int> S; // Computed vertices.
     set<int> VS; // Vertices to be computed.
@@ -161,20 +87,18 @@ float Dijkstra(map<int, vector<pair<int, float>>> graph, int source, int dest) {
     int p[V]; // Contains predecessor node indices, for finding the shortest path.
 
     for (int i = 0; i < V; i++) {
-
         d[i] = numeric_limits<int>::max(); // Sets each value in 'd' to 'infinity' (max integer value).
         p[i] = -1;
-
     }
     cout << "numeric for loop complete" << endl;
+    
     d[source] = 0;
     float distance = 0;
     int nodes = 0;
     int min = source; // 'min' tracks the closest node to source in 'VS', initially source itself.
     pq.push(make_pair(source, 0));
+    
     while (!pq.empty()) {
-
-
         pair<int, float> curr = pq.top();
         pq.pop();
         int u = curr.first;
@@ -201,12 +125,10 @@ float Dijkstra(map<int, vector<pair<int, float>>> graph, int source, int dest) {
         }
     }
 
-    stack<int> path; // Represents the shortest path found; source on the top, destination on the bottom.
-    path.push(dest); // Thus, destination is pushed first.
     cout << "distance: " << distance << endl;
     cout << "nodes checked: " << nodes << endl;
-
-    auto toc = Clock::now();
+   
+    auto toc = Clock::now(); // end timer for algorithm
     cout << "elapsed time: " << duration_cast<std::chrono::milliseconds>(toc - tic).count() << endl;
     return distance;
 }
