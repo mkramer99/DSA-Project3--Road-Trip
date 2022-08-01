@@ -6,7 +6,6 @@
 #include <map>
 #include <string>
 #include <chrono>
-#include "Point.h"
 #include "Graph.h"
 #include "Algorithms.h"
 using namespace std;
