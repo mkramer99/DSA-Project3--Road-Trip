@@ -1,6 +1,5 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include "FileManager.h"
 #include "TextureManager.h"
 #include "Number.h"
 #include "vector"
@@ -33,7 +32,6 @@ int main() {
     rangeB = rangeD;
     mileageB = mileageD;
     sf::Event event;
-    FileManager cfg;
     vector<sf::CircleShape> pins;
     unordered_map<string, pair<int, int>> cityLocations; // city, x, y
     map<string, int> cities;
