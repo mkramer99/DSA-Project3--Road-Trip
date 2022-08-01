@@ -19,18 +19,22 @@ public:
     int startnodeid;
     int endnodeid;
     float distance;
-    map<int, vector<pair<int, float>>> graph; // THE GRAPH
+    map<int, vector<pair<int, float>>> graph;
     map<int, vector<pair<float, float>>> cityNodes;
-    map<string, int> cities; // hold indexed city node ids
+    map<string, int> cities;
     string edgesFile = "Edges-NA(edgeid, startnodeid, endnodeid, distance).txt";
     string nodesFile = "Nodes-NA(nodeid, normX, normY).txt";
     string citiesFile = "Cities";
     Graph();
     void LoadCities();
     void FindCities();
+    map<string, int> GetCities();
 };
 
-// create the graph
+map<string, int> Graph::GetCities() {
+    return cities;
+}
+
 Graph::Graph() {
     ifstream file;
     file.open(edgesFile);
@@ -49,7 +53,6 @@ Graph::Graph() {
     LoadCities();
 }
 
-// load the nodes to locate city locations
 void Graph::LoadCities() {
     int nodeid;
     float latx;
@@ -91,14 +94,15 @@ void Graph::FindCities() {
                     if (itt->second[j].first > lat - 100 && itt->second[j].first < lat + 100) {
                         // if long is in range
                         if (itt->second[j].second > lon - 100 && itt->second[j].second < lon + 100) {
-                            // get difference from the estimated normalized x y coordinates
+                            //cout << itt->first << " " << itt->second[j].first << " " << itt->second[j].second << endl;
                             temprange += abs(itt->second[j].first - lat);
                             temprange += abs(itt->second[j].second - lon);
+                            //cout << "temprange: " << temprange << endl;
                             if (temprange < range) {
-                                // if node is closer than the current closest
                                 closestNode = itt->first;
                                 range = temprange;
                                 temprange = 0;
+                                //cout << "range: " << range << endl;
                             }
                         }
                     }
@@ -106,6 +110,7 @@ void Graph::FindCities() {
             }
             cities[city] = closestNode;
             cout << city << " " << closestNode << endl;
+            // find closest node within the group
         }
     }
     file.close();
